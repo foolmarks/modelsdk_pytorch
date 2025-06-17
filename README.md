@@ -1,4 +1,4 @@
-# Running ModelSDK on an PyTorch ResNex101 classifier model #
+# Running ModelSDK on an PyTorch ResNext101 classifier model #
 
 How to quantize and compile a PyTorch ResNext101 classifier model using Palette 1.6. 
 
