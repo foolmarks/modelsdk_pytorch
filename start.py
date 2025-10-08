@@ -77,7 +77,7 @@ def find_available_port(start_port=49152, end_port=65535):
 def main():
     try:
         # Parameters
-        VERSION="1.6.0_Palette_SDK_master_B163"
+        VERSION="1.7.0_Palette_SDK_master_B219"
         IMAGE = "palettesdk"
         CONTAINER_NAME = f"{IMAGE}_{VERSION.replace('.', '_')}"
         PORT = find_available_port()
@@ -212,16 +212,48 @@ def main():
                     mount_path = os.path.join(home, "workspace")
 
                 while True:
-                    workspace = input(f"Enter work directory [{mount_path}]: ") or mount_path
-                    workspace = os.path.realpath(os.path.expanduser(workspace))
+                    workspace = (
+                        input(f"Enter work directory [{mount_path}]: ").strip() or mount_path
+                    )
+                    workspace = os.path.expanduser(workspace)
+                    workspace = os.path.realpath(workspace)
 
                     if os.path.isdir(workspace):
-                        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-                        with open(file_path, 'w') as file:
-                            file.write(workspace)
+                        if not os.path.exists(f"{home}/.simaai/"):
+                            os.makedirs(f"{home}/.simaai/")
+
+                        with open(file_path, "w") as f:
+                            f.write(workspace)
                         break
                     else:
-                        print("The specified work directory does not exist or is not a valid directory. Please try again.")
+                        print(
+                            "The specified work directory does not exist or is not a valid directory."
+                        )
+                        user_choice = (
+                            input(
+                                "Would you like to create the directory? (y/n) or press 'r' to retry with another directory: "
+                            )
+                            .strip()
+                            .lower()
+                        )
+
+                        if user_choice == "y":
+                            try:
+                                os.makedirs(workspace)
+                                print(f"Directory '{workspace}' has been created.")
+                                if not os.path.exists(f"{home}/.simaai/"):
+                                    os.makedirs(f"{home}/.simaai/")
+
+                                with open(file_path, "w") as f:
+                                    f.write(workspace)
+                                break
+                            except Exception as e:
+                                print(f"Failed to create the directory. Error: {e}")
+                        elif user_choice == "r":
+                            continue
+                        else:
+                            print("Exiting the setup.")
+                            sys.exit(0)
 
                 print(f"Starting the container: {CONTAINER_NAME}")
                 # Check SiMa SDK Bridge Network

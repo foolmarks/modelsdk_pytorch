@@ -1,6 +1,6 @@
 # Running ModelSDK on an PyTorch ResNext101 classifier model #
 
-How to quantize and compile a PyTorch ResNext101 classifier model using Palette 1.6. 
+How to quantize and compile a PyTorch ResNext101 classifier model using Palette 1.7. 
 
 This tutorial shows how to run default Post-Training Quantization (PTQ), evaluate the quantized model and then compiling for the output .tar.gz archive.
 
@@ -16,26 +16,28 @@ python ./start.py
 The output in the console should look like this:
 
 ```shell
-user@ubmsh:~/tutorials/modelsdk_pytorch$ ./start.py 
+user@ubmsh2:~/projects/smarty/modelsdk_pytorch$ ./start.py 
+/home/mark/projects/smarty/modelsdk_pytorch/./start.py:111: SyntaxWarning: invalid escape sequence '\P'
+  docker_start_cmd = 'cmd.exe /c "start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe""'
 Set no_proxy to localhost,127.0.0.0
 Using port 49152 for the installation.
 Checking if the container is already running...
-Enter work directory [/home/user/tutorials/modelsdk_pytorch]: ./
-Starting the container: palettesdk_1_6_0_Palette_SDK_master_B163
+Enter work directory [/home/mark/projects/uster/seg_model]: ./
+Starting the container: palettesdk_1_7_0_Palette_SDK_master_B219
 Checking SiMa SDK Bridge Network...
 SiMa SDK Bridge Network found.
 Creating and starting the Docker container...
-b376b867257233623491103715372c56d56d0403ca3c0da4d68a3cde2c7c6a27
-Successfully copied 3.07kB to /home/user/tutorials/modelsdk_pytorch/passwd.txt
-Successfully copied 3.07kB to palettesdk_1_6_0_Palette_SDK_master_B163:/etc/passwd
-Successfully copied 2.56kB to /home/user/tutorials/modelsdk_pytorch/shadow.txt
-Successfully copied 2.56kB to palettesdk_1_6_0_Palette_SDK_master_B163:/etc/shadow
-Successfully copied 2.56kB to /home/user/tutorials/modelsdk_pytorch/group.txt
-Successfully copied 2.56kB to palettesdk_1_6_0_Palette_SDK_master_B163:/etc/group
-Successfully copied 3.58kB to /home/user/tutorials/modelsdk_pytorch/sudoers.txt
-Successfully copied 3.58kB to palettesdk_1_6_0_Palette_SDK_master_B163:/etc/sudoers
-Successfully copied 2.05kB to palettesdk_1_6_0_Palette_SDK_master_B163:/home/docker/.simaai/.port
-user@b376b8672572:/home$ 
+3f19458416b3cf4d906fea2b06df994b4facbbc35d2f1a2be159428a139ac422
+Successfully copied 3.07kB to /home/mark/projects/smarty/modelsdk_pytorch/passwd.txt
+Successfully copied 3.07kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/passwd
+Successfully copied 2.56kB to /home/mark/projects/smarty/modelsdk_pytorch/shadow.txt
+Successfully copied 2.56kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/shadow
+Successfully copied 2.56kB to /home/mark/projects/smarty/modelsdk_pytorch/group.txt
+Successfully copied 2.56kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/group
+Successfully copied 3.58kB to /home/mark/projects/smarty/modelsdk_pytorch/sudoers.txt
+Successfully copied 3.58kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/sudoers
+Successfully copied 2.05kB to palettesdk_1_7_0_Palette_SDK_master_B219:/home/docker/.simaai/.port
+mark@3f19458416b3:/home$ 
 ```
 
 Navigate to the workspace:

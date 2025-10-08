@@ -48,7 +48,7 @@ import tarfile
 
 # Palette-specific imports
 from afe.load.importers.general_importer import ImporterParams, pytorch_source
-from afe.apis.defines import default_quantization
+from afe.apis.defines import default_quantization, gen1_target, gen2_target
 from afe.apis.loaded_net import load_model
 from afe.apis.error_handling_variables import enable_verbose_error_messages
 from afe.apis.release_v1 import get_model_sdk_version
@@ -76,6 +76,17 @@ def implement(args):
     # get filename from full path
     filename = os.path.splitext(os.path.basename(args.model_path))[0]
 
+    log_file = "run_modelsdk.log"
+
+    # Configure logging to file
+    logging.basicConfig(
+        filename=log_file,
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+
     # set an output path for saving results
     output_path = f'{args.build_dir}/{filename}'
 
@@ -83,7 +94,10 @@ def implement(args):
     input_names = ['x']
     input_shapes = [(1, 3, 224, 224)]
     importer_params: ImporterParams = pytorch_source(args.model_path, input_names, input_shapes)
-    loaded_net = load_model(importer_params)
+
+    # choose DaVinci or Modalix as target
+    target = gen2_target if args.generation == 2 else gen1_target
+    loaded_net = load_model(importer_params,target=target)
 
     # calibration data
     with np.load(args.calib_data) as data:
@@ -138,11 +152,12 @@ def implement(args):
 
 def run_main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('-bd', '--build_dir', type=str, default='build', help='Path of build folder. Default is build')
-    ap.add_argument('-m', '--model_path', type=str, default='./pyt/resnext101_32x8d_wsl.pt', help='path to FP32 model')
-    ap.add_argument('-b', '--batch_size', type=int, default=1, help='requested batch size of compiled model. Default is 1')
-    ap.add_argument('-td', '--test_data', type=str, default='test_data.npz', help='Path of test data numpy file. Default is test_data.npz')
-    ap.add_argument('-cd', '--calib_data', type=str, default='calib_data.npz', help='Path of calibration data numpy file. Default is calib_data.npz')
+    ap.add_argument('-bd', '--build_dir',   type=str, default='build', help='Path of build folder. Default is build')
+    ap.add_argument('-m',  '--model_path',  type=str, default='./pyt/resnext101_32x8d_wsl.pt', help='path to FP32 model')
+    ap.add_argument('-b',  '--batch_size',  type=int, default=1, help='requested batch size of compiled model. Default is 1')
+    ap.add_argument('-td', '--test_data',   type=str, default='test_data.npz', help='Path of test data numpy file. Default is test_data.npz')
+    ap.add_argument('-cd', '--calib_data',  type=str, default='calib_data.npz', help='Path of calibration data numpy file. Default is calib_data.npz')
+    ap.add_argument('-g',  '--generation',  type=int, default=2, choices=[1,2], help='Target device: 1 = DaVinci, 2 = Modalix. Default is 2')    
     args = ap.parse_args()
 
     # ensure build directory exists
