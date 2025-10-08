@@ -16,25 +16,25 @@ python ./start.py
 The output in the console should look like this:
 
 ```shell
-user@ubmsh2:~/projects/smarty/modelsdk_pytorch$ ./start.py 
-/home/mark/projects/smarty/modelsdk_pytorch/./start.py:111: SyntaxWarning: invalid escape sequence '\P'
+user@ubmsh2:~/projects/modelsdk_pytorch$ ./start.py 
+/home/projects/modelsdk_pytorch/./start.py:111: SyntaxWarning: invalid escape sequence '\P'
   docker_start_cmd = 'cmd.exe /c "start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe""'
 Set no_proxy to localhost,127.0.0.0
 Using port 49152 for the installation.
 Checking if the container is already running...
-Enter work directory [/home/mark/projects/uster/seg_model]: ./
+Enter work directory [/home/mark/projects/seg_model]: ./
 Starting the container: palettesdk_1_7_0_Palette_SDK_master_B219
 Checking SiMa SDK Bridge Network...
 SiMa SDK Bridge Network found.
 Creating and starting the Docker container...
 3f19458416b3cf4d906fea2b06df994b4facbbc35d2f1a2be159428a139ac422
-Successfully copied 3.07kB to /home/mark/projects/smarty/modelsdk_pytorch/passwd.txt
+Successfully copied 3.07kB to /home/projects/modelsdk_pytorch/passwd.txt
 Successfully copied 3.07kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/passwd
-Successfully copied 2.56kB to /home/mark/projects/smarty/modelsdk_pytorch/shadow.txt
+Successfully copied 2.56kB to /home/projects/modelsdk_pytorch/shadow.txt
 Successfully copied 2.56kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/shadow
-Successfully copied 2.56kB to /home/mark/projects/smarty/modelsdk_pytorch/group.txt
+Successfully copied 2.56kB to /home/projects/modelsdk_pytorch/group.txt
 Successfully copied 2.56kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/group
-Successfully copied 3.58kB to /home/mark/projects/smarty/modelsdk_pytorch/sudoers.txt
+Successfully copied 3.58kB to /home/projects/modelsdk_pytorch/sudoers.txt
 Successfully copied 3.58kB to palettesdk_1_7_0_Palette_SDK_master_B219:/etc/sudoers
 Successfully copied 2.05kB to palettesdk_1_7_0_Palette_SDK_master_B219:/home/docker/.simaai/.port
 mark@3f19458416b3:/home$ 
